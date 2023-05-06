@@ -3,6 +3,9 @@ import React, { useEffect } from "react";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 import { initializeLogger } from "common/logger";
+import Login from "components/Auth/Login";
+import Signup from "components/Auth/Signup";
+import Dashboard from "components/Dashboard";
 
 const App = () => {
   useEffect(() => {
@@ -12,9 +15,9 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" render={() => <div>Home</div>} />
-        <Route exact path="/signup" render={() => <div>Sign Up</div>} />
-        <Route exact path="/login" render={() => <div>Login</div>} />
+        <Route exact component={Dashboard} path="/" />
+        <Route exact component={Signup} path="/signup" />
+        <Route exact component={Login} path="/login" />
       </Switch>
     </Router>
   );
