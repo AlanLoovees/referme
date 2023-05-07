@@ -20,7 +20,7 @@ const StyledContent = styled("div")(() => ({
   flexDirection: "column",
 }));
 
-const LoginForm = () => {
+const LoginForm = ({ handleSubmit, setEmail, setPassword }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -30,30 +30,33 @@ const LoginForm = () => {
           Sign in to ReferMe!
         </Typography>
         <Typography sx={{ mb: 5 }} variant="body2">
-          New around here?
-          <Link variant="subtitle2">Get started</Link>
+          New around here?{" "}
+          <Link href="/signup" variant="subtitle2">
+            Get started
+          </Link>
         </Typography>
-        <Stack spacing={3}>
-          <TextField label="Email address" name="email" />
-          <TextField
-            label="Password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-          />
-        </Stack>
-        <Box sx={{ my: 2 }} onClick={() => setShowPassword(!showPassword)}>
-          <Checkbox name="toggleShowPassword" />
-          {showPassword ? "Hide" : "Show"} Password
+        <Box component="form" onSubmit={handleSubmit}>
+          <Stack spacing={3}>
+            <TextField
+              label="Email address"
+              name="email"
+              onChange={e => setEmail(e.target.value)}
+            />
+            <TextField
+              label="Password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </Stack>
+          <Box sx={{ my: 2 }} onClick={() => setShowPassword(!showPassword)}>
+            <Checkbox name="toggleShowPassword" />
+            {showPassword ? "Hide" : "Show"} Password
+          </Box>
+          <Button fullWidth size="large" type="submit" variant="contained">
+            Login
+          </Button>
         </Box>
-        <Button
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          // onClick={handleSubmit}
-        >
-          Login
-        </Button>
       </StyledContent>
     </Container>
   );

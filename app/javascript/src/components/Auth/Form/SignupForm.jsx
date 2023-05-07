@@ -20,7 +20,12 @@ const StyledContent = styled("div")(() => ({
   flexDirection: "column",
 }));
 
-const SignupForm = () => {
+const SignupForm = ({
+  handleSubmit,
+  setConfirmPassword,
+  setEmail,
+  setPassword,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -30,36 +35,39 @@ const SignupForm = () => {
           Let's get you started!
         </Typography>
         <Typography sx={{ mb: 5 }} variant="body2">
-          Have an account?
-          <Link variant="subtitle2">Login here</Link>
+          Have an account?{" "}
+          <Link href="/login" variant="subtitle2">
+            Login here
+          </Link>
         </Typography>
-        <Stack spacing={3}>
-          <TextField label="Name" name="name" />
-          <TextField label="Email address" name="email" />
-          <TextField
-            label="Password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-          />
-          <TextField
-            label="Confirm Password"
-            name="confirmPassword"
-            type={showPassword ? "text" : "password"}
-          />
-        </Stack>
-        <Box sx={{ my: 2 }} onClick={() => setShowPassword(!showPassword)}>
-          <Checkbox name="toggleShowPassword" />
-          {showPassword ? "Hide" : "Show"} Password
+        <Box component="form" onSubmit={handleSubmit}>
+          <Stack spacing={3}>
+            <TextField
+              label="Email address"
+              name="email"
+              onChange={e => setEmail(e.target.value)}
+            />
+            <TextField
+              label="Password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              onChange={e => setPassword(e.target.value)}
+            />
+            <TextField
+              label="Confirm Password"
+              name="confirmPassword"
+              type={showPassword ? "text" : "password"}
+              onChange={e => setConfirmPassword(e.target.value)}
+            />
+          </Stack>
+          <Box sx={{ my: 2 }} onClick={() => setShowPassword(!showPassword)}>
+            <Checkbox name="toggleShowPassword" />
+            {showPassword ? "Hide" : "Show"} Password
+          </Box>
+          <Button fullWidth size="large" type="submit" variant="contained">
+            Sign Up
+          </Button>
         </Box>
-        <Button
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          // onClick={handleSubmit}
-        >
-          Sign Up
-        </Button>
       </StyledContent>
     </Container>
   );
