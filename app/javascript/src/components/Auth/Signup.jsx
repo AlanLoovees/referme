@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import { useHistory } from "react-router-dom";
-
 import authApi from "apis/auth";
 
 import SignupForm from "./Form/SignupForm";
@@ -10,8 +8,6 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const history = useHistory();
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -25,8 +21,9 @@ const Signup = () => {
     };
 
     try {
-      await authApi.signup(payload);
-      history.push("/");
+      const response = await authApi.signup(payload);
+      localStorage.setItem("token", response.headers.authorization);
+      setTimeout(() => (window.location.href = "/"), 1000);
     } catch (error) {
       logger.error(error);
     }
