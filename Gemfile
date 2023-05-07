@@ -73,6 +73,7 @@ gem "webpacker"
 gem "react-rails"
 
 gem "devise"
+gem "devise_invitable", "~> 2.0.0"
 gem "devise-jwt"
 gem "fast_jsonapi"
 gem "rack-cors"
