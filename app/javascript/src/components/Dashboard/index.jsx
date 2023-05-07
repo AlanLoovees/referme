@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import authApi from "apis/auth";
+import currentUserApi from "apis/currentUser";
 import invitationApi from "apis/invitation";
 
 const StyledContent = styled("div")(() => ({
@@ -16,6 +17,7 @@ const StyledContent = styled("div")(() => ({
 
 const Dashboard = () => {
   const [email, setEmail] = useState("");
+  const [invites, setInvites] = useState([]);
 
   const handleLogout = async () => {
     try {
@@ -35,6 +37,20 @@ const Dashboard = () => {
       logger.error(error);
     }
   };
+
+  const fetchInvites = async () => {
+    try {
+      const response = await currentUserApi.list();
+      setInvites(response.data.invited_users);
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+  useEffect(() => {}, [invites]);
+
+  useEffect(() => {
+    fetchInvites();
+  }, []);
 
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit}>
@@ -60,8 +76,15 @@ const Dashboard = () => {
             Logout
           </Button>
         </Stack>
+        <Typography sx={{ pt: 5, pb: 3, textAlign: "center" }} variant="h5">
+          Invited Users
+        </Typography>
+        {invites.map(user => (
+          <Typography key={user.id} sx={{ mt: 2, textAlign: "center" }}>
+            {user.email}
+          </Typography>
+        ))}
       </StyledContent>
-      ;
     </Container>
   );
 };
