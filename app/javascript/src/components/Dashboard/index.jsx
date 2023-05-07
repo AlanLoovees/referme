@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import authApi from "apis/auth";
+import invitationApi from "apis/invitation";
 
 const StyledContent = styled("div")(() => ({
   margin: "auto",
@@ -14,6 +15,8 @@ const StyledContent = styled("div")(() => ({
 }));
 
 const Dashboard = () => {
+  const [email, setEmail] = useState("");
+
   const handleLogout = async () => {
     try {
       await authApi.logout();
@@ -24,19 +27,26 @@ const Dashboard = () => {
     }
   };
 
+  const handleSubmit = async event => {
+    event.preventDefault();
+    try {
+      await invitationApi.create({ user: { email } });
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
   return (
-    <Container maxWidth="sm">
+    <Container component="form" maxWidth="sm" onSubmit={handleSubmit}>
       <StyledContent>
         <Stack spacing={2}>
           <Typography>We grow when you spread the word:</Typography>
-          <TextField label="Email to Refer" name="email" />
-          <Button
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            // onClick={handleSubmit}
-          >
+          <TextField
+            label="Email to Refer"
+            name="email"
+            onChange={e => setEmail(e.target.value)}
+          />
+          <Button fullWidth size="large" type="submit" variant="contained">
             Refer
           </Button>
           <Button
