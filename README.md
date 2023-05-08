@@ -27,6 +27,8 @@ or
 ./bin/dev
 ```
 
+Go to http://localhost:3000
+
 ## Demo
 
 You can watch the demo of the application
