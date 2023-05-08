@@ -1,24 +1,33 @@
-# README
+# Referme
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Ruby on Rails app with the ability to refer new users via email. Developed
+using Devise authentication and Devise Invitable gem. Letter opener gem is used
+for email preview for development. React and Material UI was used for the
+frontend. MySQL was used for database.
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+```
+git clone git@github.com:AlanLoovees/referme.git
 
-* System dependencies
+cd referme
 
-* Configuration
+./bin/setup
+```
 
-* Database creation
+## Running
 
-* Database initialization
+```
+rails s
+```
 
-* How to run the test suite
+or
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+./bin/dev
+```
 
-* Deployment instructions
+## Demo
 
-* ...
+You can watch the demo of the application
+[here](https://www.loom.com/share/31c803835b854a4db1fc64b62cadb2e9).

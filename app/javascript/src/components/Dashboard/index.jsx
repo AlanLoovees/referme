@@ -77,7 +77,7 @@ const Dashboard = () => {
           </Button>
         </Stack>
         <Typography sx={{ pt: 5, pb: 3, textAlign: "center" }} variant="h5">
-          Invited Users
+          {invites.length ? "Invited Users" : ""}
         </Typography>
         {invites.map(user => (
           <Typography key={user.id} sx={{ mt: 2, textAlign: "center" }}>
